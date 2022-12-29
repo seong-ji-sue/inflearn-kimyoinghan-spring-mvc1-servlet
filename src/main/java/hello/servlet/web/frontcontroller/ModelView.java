@@ -6,6 +6,9 @@ import lombok.Setter;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * V3에서만 사용
+ */
 @Getter
 @Setter
 public class ModelView {
