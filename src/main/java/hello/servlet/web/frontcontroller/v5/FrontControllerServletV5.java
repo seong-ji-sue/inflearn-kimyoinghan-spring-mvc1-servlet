@@ -5,7 +5,11 @@ import hello.servlet.web.frontcontroller.MyView;
 import hello.servlet.web.frontcontroller.v3.controller.MemberFormControllerV3;
 import hello.servlet.web.frontcontroller.v3.controller.MemberListControllerV3;
 import hello.servlet.web.frontcontroller.v3.controller.MemberSaveControllerV3;
+import hello.servlet.web.frontcontroller.v4.controller.MemberFormControllerV4;
+import hello.servlet.web.frontcontroller.v4.controller.MemberListControllerV4;
+import hello.servlet.web.frontcontroller.v4.controller.MemberSaveControllerV4;
 import hello.servlet.web.frontcontroller.v5.adapter.ControllerV3HandlerAdapter;
+import hello.servlet.web.frontcontroller.v5.adapter.ControllerV4HandlerAdapter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(name = "frontControllerServletV5", urlPatterns = "front-controller/v5/*")
+@WebServlet(name = "frontControllerServletV5", urlPatterns = "/front-controller/v5/*")
 public class FrontControllerServletV5 extends HttpServlet {
     //URI 와 컨트롤러의 인스턴스를 담기 위한 용도 (기존 ControllerV3 -> 지금 Object)
     private final Map<String, Object> handlerMappingMap = new HashMap<>();
@@ -35,11 +39,16 @@ public class FrontControllerServletV5 extends HttpServlet {
         handlerMappingMap.put("/front-controller/v5/v3/members/new-form", new MemberFormControllerV3());
         handlerMappingMap.put("/front-controller/v5/v3/members/save", new MemberSaveControllerV3());
         handlerMappingMap.put("/front-controller/v5/v3/members", new MemberListControllerV3());
+
+        handlerMappingMap.put("/front-controller/v5/v4/members/new-form", new MemberFormControllerV4());
+        handlerMappingMap.put("/front-controller/v5/v4/members/save", new MemberSaveControllerV4());
+        handlerMappingMap.put("/front-controller/v5/v4/members", new MemberListControllerV4());
     }
 
     //각 버전에 맞는 핸들러 어뎁터를 담기 위한 메서드
-    private boolean initHandlerAdapters() {
-        return handlerAdapters.add(new ControllerV3HandlerAdapter());
+    private void initHandlerAdapters() {
+        handlerAdapters.add(new ControllerV3HandlerAdapter());
+        handlerAdapters.add(new ControllerV4HandlerAdapter());
     }
 
     @Override
