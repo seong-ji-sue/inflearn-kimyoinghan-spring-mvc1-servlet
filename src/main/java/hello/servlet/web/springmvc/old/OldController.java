@@ -13,6 +13,7 @@ public class OldController implements Controller {
     @Override
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         System.out.println("OldController.handleRequest");
-        return null;
+        //Model을 반환하고 파일이름은 뷰 리졸버가 논리적인 이름으로 바꿔야함
+        return new ModelAndView("new-form");
     }
 }
